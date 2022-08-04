@@ -1,0 +1,19 @@
+name: "Bot: Checks"
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]
+
+jobs:
+  UnitTests:
+    name: "Unit Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Run Tests
+        working-directory: bot
+        run: |
+          npm ci
+          npm test -- --ci
