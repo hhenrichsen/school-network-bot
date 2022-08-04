@@ -1,6 +1,6 @@
-import { config } from 'dotenv';
-import { glob } from 'glob';
-import { DataSource } from 'typeorm';
+const { config } = require('dotenv');
+const { glob } = require('glob');
+const { DataSource } = require('typeorm');
 config();
 
 const { DATABASE_URL } = process.env;
@@ -21,6 +21,6 @@ const dataSource = new DataSource({
     },
 });
 
-export default {
+module.exports = {
     dataSource,
 };
