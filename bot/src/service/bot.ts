@@ -1,7 +1,8 @@
 import Logger from 'bunyan';
 import { Client, REST, Routes } from 'discord.js';
 import { Service } from 'typedi';
-import { CommandManager } from './commandmanager';
+import { CommandHandler } from './command/commandhandler';
+import { CommandRegistry } from './command/commandregistry';
 
 const { BOT_TOKEN, BOT_CLIENT_ID } = process.env;
 
@@ -13,7 +14,8 @@ export class Bot {
 
     constructor(
         private readonly logger: Logger,
-        private readonly commandManager: CommandManager
+        private readonly commandRegistry: CommandRegistry,
+        private readonly commandHandler: CommandHandler,
     ) {
         if (!BOT_TOKEN) {
             throw new Error(
@@ -39,7 +41,7 @@ export class Bot {
     private addCommands() {
         if (BOT_CLIENT_ID) {
             this.rest.setToken(this.token);
-            const commands = this.commandManager.getCommandDeclarations();
+            const commands = this.commandRegistry.getCommandDeclarations();
             this.rest.put(Routes.applicationCommands(BOT_CLIENT_ID), {
                 body: commands,
             });
@@ -58,7 +60,7 @@ export class Bot {
 
         this.client.on('interactionCreate', (interaction) => {
             if (interaction.isChatInputCommand()) {
-                this.commandManager.handle(interaction);
+                this.commandHandler.handle(interaction);
             }
         });
     }
