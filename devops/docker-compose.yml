@@ -16,10 +16,19 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
     volumes:
-      - ../data/db:/var/lib/mysql
+      - ../data/prod/db:/var/lib/mysql
       - ../initdb:/docker-entrypoint-initdb.d:ro
-    ports:
-      - 3306:3306
+
+  migrator:
+    build:
+      context: ../bot
+      dockerfile: prod.dockerfile
+    command: npm run migrate
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: mysql://root:password@db:3306/bot
+      MIGRATE_DATABASE_URL: mysql://root:password@db:3306/bot
 
   bot:
     build:
@@ -27,7 +36,9 @@ services:
       dockerfile: prod.dockerfile
     depends_on:
       - db
+      - migrator
     env_file:
       - ../.env
     environment:
       DATABASE_URL: mysql://root:password@db:3306/bot
+      MIGRATE_DATABASE_URL: mysql://root:password@db:3307/bot

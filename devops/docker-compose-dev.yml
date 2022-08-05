@@ -10,28 +10,51 @@ services:
       MYSQL_ROOT_PASSWORD: password
     links:
       - db:db
+      - migrate-db:migrate-db
 
   db:
     image: 'mysql:8.0.30'
     environment:
       MYSQL_ROOT_PASSWORD: password
     volumes:
-      - ../data/db:/var/lib/mysql
+      - ../data/dev/db:/var/lib/mysql
       - ../initdb:/docker-entrypoint-initdb.d:ro
-    ports:
-      - 3306:3306
+
+  migrate-db:
+    image: 'mysql:8.0.30'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ../data/dev-migrations/db:/var/lib/mysql
+      - ../initdb:/docker-entrypoint-initdb.d:ro
+
+  migrator:
+    build:
+      context: ../bot
+      dockerfile: dev.dockerfile
+    volumes:
+      - ../bot:/app
+    command: npx nodemon --legacy-watch --watch src/migrations -e ts --exec "npm run migrate" --polling-interval 5000
+    depends_on:
+      - migrate-db
+    environment:
+      DATABASE_URL: mysql://root:password@migrate-db:3306/bot
+      MIGRATE_DATABASE_URL: mysql://root:password@migrate-db:3306/bot
 
   bot:
     build:
       context: ../bot
       dockerfile: dev.dockerfile
     volumes:
-      - ../bot:/app # mount bot src
-      - /app/node_modules # preserve node modules
+      - ../bot:/app
+      - /app/node_modules 
     command: npm run dev
     depends_on:
       - db
+      - migrate-db
+      - migrator
     env_file:
       - ../.env
     environment:
       DATABASE_URL: mysql://root:password@db:3306/bot
+      MIGRATE_DATABASE_URL: mysql://root:password@migrate-db:3306/bot

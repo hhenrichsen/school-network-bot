@@ -1,6 +1,9 @@
 // Set up reflection
 import 'reflect-metadata';
 
+// Make sure we get entities into the injector.
+import './entities/guild.entity';
+
 // Load environment
 import { config as loadEnv } from 'dotenv';
 loadEnv();

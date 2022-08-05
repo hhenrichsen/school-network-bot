@@ -14,8 +14,8 @@ export class Guild {
         Object.assign(this, props);
     }
 
-    @PrimaryColumn({ length: 32 })
-    id: string = '';
+    @PrimaryColumn('varchar', { length: 32 })
+    id = '';
 
     @CreateDateColumn()
     createdAt: Date = new Date();

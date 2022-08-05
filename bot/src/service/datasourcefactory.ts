@@ -1,29 +1,24 @@
 import { EntityToken } from '../entities/base';
 import Container, { Service } from 'typedi';
 import { DataSource } from 'typeorm';
-import { readdirSync } from 'fs';
+import Logger from 'bunyan';
 
-const { DATABASE_URL } = process.env;
+const { DATABASE_URL, NODE_ENV } = process.env;
 
 @Service()
 export class DataSourceFactory {
+    constructor(private readonly logger: Logger) { }
+
     create() {
+        const entities = [...Container.getMany(EntityToken)];
+        this.logger.info(`Registerred ${entities.length} entities.`);
+
         return new DataSource({
             type: 'mysql',
             url: DATABASE_URL,
-            entities: [...Container.getMany(EntityToken)],
-            migrations: [
-                ...readdirSync(`${__dirname}/../migrations`)
-                    .filter((file) => file.endsWith('.js'))
-                    .map((it) =>
-                        Object.values(
-                            require(`${__dirname}/../migrations/${it}`) // eslint-disable-line @typescript-eslint/no-var-requires
-                        )
-                    )
-                    .flat()
-                    .filter((it): it is Function => it instanceof Function), // eslint-disable-line @typescript-eslint/ban-types
-            ],
+            entities,
             migrationsTableName: '_migrations',
+            synchronize: NODE_ENV?.toLowerCase() != 'production',
         });
     }
 }
