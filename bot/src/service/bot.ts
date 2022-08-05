@@ -15,7 +15,7 @@ export class Bot {
     constructor(
         private readonly logger: Logger,
         private readonly commandRegistry: CommandRegistry,
-        private readonly commandHandler: CommandHandler,
+        private readonly commandHandler: CommandHandler
     ) {
         if (!BOT_TOKEN) {
             throw new Error(

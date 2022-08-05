@@ -1,7 +1,6 @@
-import Logger from "bunyan";
-import { Service } from "typedi";
-import { Command } from "../../command/base";
-import { PingCommand } from "../../command/ping.command";
+import { Service } from 'typedi';
+import { Command } from '../../command/base';
+import { PingCommand } from '../../command/ping.command';
 
 @Service()
 export class CommandRegistry {

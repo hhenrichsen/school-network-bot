@@ -10,7 +10,7 @@ const { DATABASE_URL, NODE_ENV } = process.env;
 
 @Service()
 export class DataSourceFactory {
-    constructor(private readonly logger: Logger) { }
+    constructor(private readonly logger: Logger) {}
 
     create() {
         const entities = [...Container.getMany(EntityToken)];

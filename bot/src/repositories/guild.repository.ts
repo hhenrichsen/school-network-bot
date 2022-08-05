@@ -1,6 +1,6 @@
-import { Service } from "typedi";
-import { DataSource } from "typeorm";
-import { Guild } from "../entities/guild.entity";
+import { Service } from 'typedi';
+import { DataSource } from 'typeorm';
+import { Guild } from '../entities/guild.entity';
 
 @Service()
 export class GuildRepository {
