@@ -11,30 +11,23 @@ services:
     links:
       - db:db
 
-  test-db:
-    image: 'mysql:8.0.30'
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-    volumes:
-      - ./data/test-db:/var/lib/mysql
-
   db:
     image: 'mysql:8.0.30'
     environment:
       MYSQL_ROOT_PASSWORD: password
     volumes:
-      - ./data/db:/var/lib/mysql
-      - ./initdb:/docker-entrypoint-initdb.d:ro
+      - ../data/db:/var/lib/mysql
+      - ../initdb:/docker-entrypoint-initdb.d:ro
     ports:
       - 3306:3306
 
   bot:
     build:
-      context: bot
-      dockerfile: Dockerfile
+      context: ../bot
+      dockerfile: prod.dockerfile
     depends_on:
       - db
+    env_file:
+      - ../.env
     environment:
-      - DB_HOST=db
-      - DB_PASS=password
-      - DB_PORT=3066
+      DATABASE_URL: mysql://root:password@db:3306/bot

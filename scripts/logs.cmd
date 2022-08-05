@@ -1,1 +1,1 @@
-docker-compose logs --tail
+docker-compose -f devops/docker-compose.yml -p bot logs -f

@@ -1,4 +1,4 @@
-FROM node:14-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -6,7 +6,7 @@ COPY tsconfig*.json ./
 COPY src src
 RUN npm run build
 
-FROM node:14-alpine
+FROM node:18-alpine
 ENV NODE_ENV=production
 WORKDIR /app
 COPY package*.json ./
