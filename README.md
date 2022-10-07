@@ -6,9 +6,15 @@ alternative; that's what I'm doing here.
 ## Getting Started
 * Install Docker and Docker Compose (Node is not required; that's handled by
 Docker)
-* Run `./scripts/dev.sh` or `./scripts/dev.cmd`.
 * Register a discord bot application.
-* Copy `.env.example` to `.env` and fill in the required values.
+  * https://discord.com/developers/applications 
+  * Sign in to your discord account
+  * Create new application
+    * Make note of Application ID
+  * Create new Bot
+    * Make note of Token (May need to click `Reset Token` to generate a new token)
+* Copy `.env.example` to `.env` and fill in the required values with the information from above.
+* Run `./scripts/dev.sh` or `./scripts/dev.cmd`.
 * You're done.
 
 ## Development Mode
