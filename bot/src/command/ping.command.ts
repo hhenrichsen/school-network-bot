@@ -8,17 +8,13 @@ import { Service } from 'typedi';
 import { Command } from './base';
 
 @Service()
-export class PingCommand implements Command {
+export class PingCommand extends Command {
     public readonly type = PingCommand;
 
-    declaration: RESTPostAPIApplicationCommandsJSONBody;
-
-    constructor() {
-        this.declaration = new SlashCommandBuilder()
-            .setName('ping')
-            .setDescription('Checks if the bot is working')
-            .toJSON();
-    }
+    declaration = new SlashCommandBuilder()
+        .setName('ping')
+        .setDescription('Checks if the bot is working')
+        .toJSON();
 
     async run(interaction: Interaction<CacheType>): Promise<void> {
         if (!interaction.isChatInputCommand()) {

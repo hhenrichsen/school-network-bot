@@ -5,10 +5,10 @@ import {
 } from 'discord.js';
 import { Constructor } from '../types/constructor';
 
-export interface Command {
-    declaration: RESTPostAPIApplicationCommandsJSONBody;
-    type: Constructor<Command>;
-    run(
+export abstract class Command {
+    public abstract readonly declaration: RESTPostAPIApplicationCommandsJSONBody;
+    protected abstract type: Constructor<Command>;
+    public abstract run(
         interaction: ChatInputCommandInteraction<CacheType>
     ): Promise<void> | void;
 }
