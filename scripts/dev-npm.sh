@@ -1,1 +1,1 @@
-docker-compose -f devops/docker-compose-dev.yml -p bot exec bot npm $@
+docker-compose -f devops/docker-compose-dev.yml -p backend exec backend npm $@

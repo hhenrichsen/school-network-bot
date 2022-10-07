@@ -1,1 +1,1 @@
-docker-compose -f devops/docker-compose-dev.yml -p bot up --build -d %*
+docker-compose -f devops/docker-compose-dev.yml -p backend up --build -d %*
