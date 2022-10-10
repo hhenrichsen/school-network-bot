@@ -1,1 +1,1 @@
-CREATE DATABASE bot;
+CREATE DATABASE networkbot;

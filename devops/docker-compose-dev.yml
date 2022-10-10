@@ -38,10 +38,10 @@ services:
     depends_on:
       - migrate-db
     environment:
-      DATABASE_URL: mysql://root:password@migrate-db:3306/bot
-      MIGRATE_DATABASE_URL: mysql://root:password@migrate-db:3306/bot
+      DATABASE_URL: mysql://root:password@migrate-db:3306/networkbot
+      MIGRATE_DATABASE_URL: mysql://root:password@migrate-db:3306/networkbot
 
-  bot:
+  backend:
     build:
       context: ../backend
       dockerfile: dev.dockerfile
@@ -56,5 +56,5 @@ services:
     env_file:
       - ../.env
     environment:
-      DATABASE_URL: mysql://root:password@db:3306/bot
-      MIGRATE_DATABASE_URL: mysql://root:password@migrate-db:3306/bot
+      DATABASE_URL: mysql://root:password@db:3306/networkbot
+      MIGRATE_DATABASE_URL: mysql://root:password@migrate-db:3306/networkbot
