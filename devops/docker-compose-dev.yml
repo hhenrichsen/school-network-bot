@@ -1,6 +1,7 @@
 version: '2'
 services:
   adminer:
+    restart: always
     image: 'adminer'
     depends_on:
       - db
@@ -11,6 +12,7 @@ services:
       - migrate-db:migrate-db
 
   db:
+    restart: always
     image: 'mysql:8.0.30'
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -19,6 +21,7 @@ services:
       - ../initdb:/docker-entrypoint-initdb.d:ro
 
   migrate-db:
+    restart: always
     image: 'mysql:8.0.30'
     environment:
       MYSQL_ROOT_PASSWORD: password
