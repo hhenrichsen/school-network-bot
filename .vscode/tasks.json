@@ -22,6 +22,15 @@
             "group": "build",
         },
         {
+            "label": "Dev: Run Compose Command",
+            "type": "shell",
+            "command": "./scripts/dc.sh ${input:args}",
+            "windows": {
+                "command": "./scripts/dc.bat ${input:args}"
+            },
+            "group": "build",
+        },
+        {
             "label": "Dev: Erase Database",
             "type": "shell",
             "command": "./scripts/dev-kill-db.sh",
