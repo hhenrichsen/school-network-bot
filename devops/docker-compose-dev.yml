@@ -54,7 +54,7 @@ services:
       context: ../backend
       dockerfile: dev.dockerfile
     volumes:
-      - ../backend/src:/app/src:ro
+      - ../backend/src:/app/src
       - /app/node_modules
     command: |
       /bin/sh -c "
