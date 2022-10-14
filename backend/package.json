@@ -12,8 +12,6 @@
     "migrate": "typeorm-ts-node-commonjs migration:run -d ./datasource.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^1.0.1",
     "bunyan": "^1.8.15",

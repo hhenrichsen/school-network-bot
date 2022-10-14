@@ -1,1 +1,1 @@
-docker-compose -f devops/docker-compose-dev.yml -p backend exec backend /bin/sh
+docker-compose -f devops/docker-compose-dev.yml -p networkbot exec backend /bin/sh
