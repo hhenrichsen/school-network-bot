@@ -33,7 +33,13 @@ services:
     volumes:
       - ../backend/src:/app/src:ro
       - /app/node_modules
-    command: npx nodemon --legacy-watch --watch src/migrations -e ts --exec "npm run migrate" --polling-interval 5000
+    command: |
+      /bin/sh -c "
+      echo 'Started; waiting for DB'
+      while ! nc -z db 3306
+        do sleep 1
+      done
+      npx nodemon --legacy-watch --watch src/migrations -e ts --exec \"npm run migrate\" --polling-interval 5000"
     depends_on:
       - migrate-db
     environment:
@@ -47,7 +53,13 @@ services:
     volumes:
       - ../backend/src:/app/src:ro
       - /app/node_modules
-    command: npm run dev
+    command: |
+      /bin/sh -c "
+      echo 'Started; waiting for DB'
+      while ! nc -z db 3306 
+        do sleep 1
+      done
+      npm run dev"
     depends_on:
       - db
       - migrate-db
