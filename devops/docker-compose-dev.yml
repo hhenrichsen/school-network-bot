@@ -39,7 +39,7 @@ services:
     command: |
       /bin/sh -c "
       echo 'Started; waiting for DB'
-      while ! nc -z db 3306
+      while ! nc -z migrate-db 3306
         do sleep 1
       done
       npx nodemon --legacy-watch --watch src/migrations -e ts --exec \"npm run migrate\" --polling-interval 5000"
