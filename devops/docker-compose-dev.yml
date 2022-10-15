@@ -94,3 +94,8 @@ services:
     links:
       - angular:angular
       - adminer:adminer
+
+  docs:
+    image: squidfunk/mkdocs-material
+    volumes:
+      - ../frontend/docs:/docs
