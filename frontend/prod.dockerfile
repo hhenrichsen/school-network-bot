@@ -6,6 +6,6 @@ COPY ./angular/. .
 RUN npm run build --omit=dev
 
 FROM nginx:1.20.1
-COPY --from=angular-build /app/dist/app /usr/share/nginx/html
+COPY --from=angular-build /app/dist/app /usr/share/nginx/html/angular
 COPY ./proxy/nginx-prod.conf /etc/nginx/nginx.conf
-EXPOSE 80:80
+EXPOSE 80
