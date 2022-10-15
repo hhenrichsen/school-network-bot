@@ -49,11 +49,20 @@
             "group": "build",
         },
         {
-            "label": "Dev: Run NPM Command",
+            "label": "Dev: Run Backend NPM Command",
             "type": "shell",
-            "command": "./scripts/dev-npm.sh ${input:args}",
+            "command": "./scripts/dev-backend-npm.sh ${input:args}",
             "windows": {
-                "command": "./scripts/dev-npm.bat ${input:args}"
+                "command": "./scripts/dev-backend-npm.bat ${input:args}"
+            },
+            "group": "build",
+        },
+        {
+            "label": "Dev: Run Angular NPM Command",
+            "type": "shell",
+            "command": "./scripts/dev-angular-npm.sh ${input:args}",
+            "windows": {
+                "command": "./scripts/dev-angular-npm.bat ${input:args}"
             },
             "group": "build",
         }
