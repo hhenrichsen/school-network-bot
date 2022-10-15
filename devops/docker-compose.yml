@@ -58,5 +58,7 @@ services:
     build:
       context: ../frontend
       dockerfile: prod.dockerfile
+    ports:
+      - 80:80
     volumes:
       - ../data/prod/nginx/logs:/var/log/nginx/
